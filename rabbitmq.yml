@@ -1,0 +1,7 @@
+- name: Deploy RabbitMQ
+  hosts: openstack_rabbitmq
+  become: True
+  gather_facts: True
+  tasks:
+    - include_role:
+        name: rabbitmq

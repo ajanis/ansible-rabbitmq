@@ -1,0 +1,39 @@
+---
+- name: Include OS Specific Variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Install
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: stop rabbitmq server
+  service:
+    name: rabbitmq-server
+    enabled: True
+    state: stopped
+
+# Configure
+- include_tasks: config.yml
+- include_tasks: limits.yml
+
+# Configure cluster
+- include_tasks: configure-cluster.yml
+  when: rabbitmq_cluster
+
+- name: start rabbitmq server
+  service:
+    name: rabbitmq-server
+    enabled: True
+    state: started
+
+# Set up vhosts, users, plugins
+- include_tasks: vhosts.yml
+- include_tasks: users.yml
+- include_tasks: plugins.yml
+
+# Start cluster on all nodes
+- include_tasks: cluster.yml
+  when: rabbitmq_cluster and rabbitmq_nodename != rabbitmq_cluster_master

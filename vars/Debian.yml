@@ -1,0 +1,9 @@
+rabbitmq_deps_packages:
+  - apt-transport-https
+  - erlang
+
+local_rabbitmq_pkgs:
+  - rabbitmq-server_{{ rabbitmq_version }}_all.deb
+
+rabbitmq_packages:
+  - rabbitmq-server

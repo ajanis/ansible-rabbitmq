@@ -1,0 +1,55 @@
+---
+
+- name: Adding Erlang-Solutions signing key
+  apt_key:
+    url: "https://packages.erlang-solutions.com/debian/erlang_solutions.asc"
+  when: 
+    - enable_rabbitmq_repo
+
+- name: Adding Erlang-Solutions repository
+  apt_repository:
+    repo: "deb https://packages.erlang-solutions.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} contrib"
+    state: present
+    filename: erlang-solutions
+  when: 
+    - enable_rabbitmq_repo
+
+- name: Adding RabbitMQ signing key
+  apt_key:
+    url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+  when: 
+    - enable_rabbitmq_repo
+
+- name: Adding RabbitMQ repository
+  apt_repository:
+    repo: "deb https://dl.bintray.com/rabbitmq/debian xenial main"
+    state: present
+    filename: bintray-rabbitmq
+  when: 
+    - enable_rabbitmq_repo
+
+- name: Install RabbitMQ Dependency Packages
+  apt:
+    name: "{{ rabbitmq_deps_packages }}"
+    state: present
+    update_cache: yes
+
+- name: Copy RabbitMQ Packages
+  copy:
+    src: "debs/{{ item }}"
+    dest: "/opt/{{ item }}"
+  with_items: "{{ local_rabbitmq_pkgs }}"
+  when: install_rabbitmq_from_pkgs
+
+- name: Install RabbitMQ from local packages
+  shell: apt-get -y install /opt/*.deb
+  args:
+    executable: /bin/bash
+  when: install_rabbitmq_from_pkgs
+
+- name: Install RabbitMQ packages
+  apt:
+    name: "{{ rabbitmq_packages }}"
+    state: present
+    update_cache: yes
+  when: not install_rabbitmq_from_pkgs

@@ -1,0 +1,17 @@
+- pam_limits:
+    domain: rabbitmq
+    limit_type: soft
+    limit_item: nofile
+    value: 64000
+    use_max: yes
+
+- name: create limits folder
+  file:
+    path: /lib/systemd/system/rabbitmq-server.service.d
+    state: directory
+
+- name: Set RabbitMQ Filehandle Limits
+  notify: Reload systemctl
+  copy:
+    src: limits.conf
+    dest: /lib/systemd/system/rabbitmq-server.service.d/limits.conf
