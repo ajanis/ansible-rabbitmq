@@ -47,6 +47,12 @@
     executable: /bin/bash
   when: install_rabbitmq_from_pkgs
 
+- name: Remove debs
+  shell: rm -f /opt/*.deb
+  args:
+    executable: /bin/bash
+  when: isntall_from_rabbitmq_pkgs
+
 - name: Install RabbitMQ packages
   apt:
     name: "{{ rabbitmq_packages }}"
