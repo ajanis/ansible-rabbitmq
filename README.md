@@ -14,11 +14,12 @@ An Ansible Role that installs RabbitMQ and configures clustering, plugins, vhost
 enable_rabbitmq_repo: True
 install_rabbitmq_from_pkgs: False
 
-rabbitmq_version: 3.6.15-1
-rabbitmq_nodename: "rabbit@{{ ansible_hostname }}"
+rabbitmq_version: 3.7.6-1
+erlang_version: 21.0-1
+rabbitmq_nodename: "rabbit@{{ ansible_default_ipv4.address }}"
 
 rabbitmq_cluster: True
-rabbitmq_cluster_master: "rabbit@{{ hostvars[ansible_play_hosts.0].ansible_hostname }}"
+rabbitmq_cluster_master: "rabbit@{{ hostvars[ansible_play_hosts.0].ansible_default_ipv4.address }}"
 rabbitmq_erlang_cookie_file: /var/lib/rabbitmq/.erlang.cookie
 rabbitmq_erlang_cookie: "{{ vault_rabbitmq_erlang_cookie }}"
 
