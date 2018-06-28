@@ -4,10 +4,10 @@ enable_rabbitmq_repo: False
 install_rabbitmq_from_pkgs: True
 
 rabbitmq_version: 3.6.15-1
-rabbitmq_nodename: "rabbit@{{ ansible_hostname }}"
+rabbitmq_nodename: "rabbit@{{ ansible_default_ipv4.address }}"
 
 rabbitmq_cluster: True
-rabbitmq_cluster_master: "rabbit@{{ hostvars[ansible_play_hosts.0].ansible_hostname }}"
+rabbitmq_cluster_master: "rabbit@{{ hostvars[ansible_play_hosts.0].ansible_default_ipv4.address }}"
 rabbitmq_erlang_cookie_file: /var/lib/rabbitmq/.erlang.cookie
 rabbitmq_erlang_cookie: "{{ vault_rabbitmq_erlang_cookie }}"
 
