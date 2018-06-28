@@ -1,8 +1,8 @@
 rabbitmq_deps_packages:
   - apt-transport-https
-  - erlang
 
 local_rabbitmq_pkgs:
+  - esl-erlang_{{ erlang_version }}_ubuntu_xenial_amd64.deb
   - rabbitmq-server_{{ rabbitmq_version }}_all.deb
 
 rabbitmq_packages:
