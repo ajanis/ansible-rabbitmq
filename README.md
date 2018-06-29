@@ -15,7 +15,7 @@ enable_rabbitmq_repo: True
 install_rabbitmq_from_pkgs: False
 
 rabbitmq_version: 3.7.6-1
-erlang_version: 21.0-1
+erlang_version: 20.3.6-1
 rabbitmq_nodename: "rabbit@{{ ansible_default_ipv4.address }}"
 
 rabbitmq_cluster: True

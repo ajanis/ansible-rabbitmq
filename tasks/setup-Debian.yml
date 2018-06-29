@@ -51,7 +51,7 @@
   shell: rm -f /opt/*.deb
   args:
     executable: /bin/bash
-  when: isntall_from_rabbitmq_pkgs
+  when: install_rabbitmq_from_pkgs
 
 - name: Install RabbitMQ packages
   apt:
