@@ -48,7 +48,7 @@ rabbitmq_cluster: True
 install_rabbitmq_from_pkgs: True
 
 rabbitmq_plugins:
-  - name: rabbitmq_management
+  - rabbitmq_management
 
 rabbitmq_users:
   - user: openstack
@@ -76,7 +76,7 @@ vault_openstack_rabbit_pass: rabbitmqpass
 +-----------------------------------------------------+
 
 rabbitmq_plugins:
-  - name: rabbitmq_management
+  - rabbitmq_management
   - name: rabbitmq_delayed_message_exchange
     url: http://www.rabbitmq.com/community-plugins/v3.6.x/rabbitmq_delayed_message_exchange-0.0.1.ez
 
@@ -124,7 +124,7 @@ rabbitmq_users_absent:
 +------------------------------------------------------------------------------+
 
 rabbitmq_vhosts:
-  - name: /one
+  - /one
   - name: /two
     node: rabbit
     tracing: no
